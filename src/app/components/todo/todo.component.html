@@ -1,0 +1,23 @@
+<div class="container pt-5">
+  <div class="card card-body">
+      <form novalidate #form="ngForm">
+        <div class="form-group">
+          <label for="title">Text</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="title"
+                  [ngModel]="formData?.title"
+                  (ngModelChange)="formData.title = $event"
+                  required
+          >
+        </div>
+          <button
+                  class="btn btn-primary"
+                  [disabled]="form.invalid"
+                  (click)="todoId ? onEdit(formData) : onAdd(formData)"
+          >{{ todoId ? 'Save todo' : 'Add todo'}}</button>
+      </form>
+  </div>
+</div>

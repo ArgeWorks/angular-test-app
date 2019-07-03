@@ -1,0 +1,42 @@
+<div class="container pt-5">
+  <div class="alert alert-info mb-5" [style.textTransform]="'uppercase'" *appMyIf="isAdmin">Welcome back admin!</div>
+
+  <div class="alert alert-info">{{ timeStamp | myTime: 'ru' : timeStampOpt }}</div>
+  <input class="form-control mb-3" type="text" [(ngModel)]="timeStamp">
+  <input class="form-control mb-5" type="text" [(ngModel)]="timeStampOpt">
+
+  <div class="alert alert-info">{{ testPipeArr | myCountArr }}</div>
+  <button class="btn btn-primary mb-5" (click)="testPipeArr.push(21)">Add +21 to array and count sum</button>
+
+  <div class="alert mb-3" [appMyStyle]="{'font-size': '20px'}" [appMyClass]="{'alert-info': testDirectiveStyle, 'alert-danger': !testDirectiveStyle}">Test my style and my class</div>
+  <button class="btn btn-primary mb-5" (click)="testDirectiveStyle = !testDirectiveStyle">Change state</button>
+
+  <div class="card card-body align-items-start">
+    <button class="btn btn-primary mb-3" routerLink="/todo/">Add new todo</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Complited</th>
+          <th scope="col"></th>
+          <th scope="col" *ngIf="isAdmin"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of todos; let i = index">
+          <!--<th scope="row" appBg [bgColor]="'red'">{{ i + 1 }}</th>-->
+          <th scope="row" [appBg]="'red'">{{ i + 1 }}</th>
+          <td>{{ item.title }}</td>
+          <td [appTodoBgColor]="item.completed">{{ item.completed ? 'Completed' : 'Not complited' }}</td>
+          <td class="text-center">
+            <button class="btn btn-primary" routerLink="/todo/{{ item.id }}">Edit</button>
+          </td>
+          <td class="text-center" *ngIf="isAdmin">
+            <button class="btn btn-danger" (click)="onDelete(item)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
